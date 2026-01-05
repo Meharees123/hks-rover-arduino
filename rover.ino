@@ -44,7 +44,7 @@ int kicker_speed = 10;
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 
-const char broker[] = "ip_adress";
+const char broker[] = "your-broker-ip-or-domain";
 int port = 1883;
 const char topic[] = "rover/control"; // MQTT topic
 

@@ -2,6 +2,14 @@
 
 Arduino firmware for the HKS Rover omnidirectional robot. This code runs on an **Arduino UNO R4 WiFi** and controls three motors plus a kicker mechanism via MQTT commands from the web interface.
 
+> **🌐 Web Interface**: [HKS Rover Web Control](https://github.com/Script-hpp/hks-rover) - The browser-based control system for this rover.
+
+## 📁 Project Files
+
+- **`rover.ino`** - Main rover control firmware (Arduino UNO R4 WiFi)
+- **`camera.ino`** - ESP32-CAM streaming firmware (ESP32-CAM module)
+- **`arduino_secrets.h`** - WiFi credentials configuration
+
 ## 📋 Table of Contents
 
 - [Hardware](#-hardware)
@@ -10,6 +18,7 @@ Arduino firmware for the HKS Rover omnidirectional robot. This code runs on an *
 - [Installation](#-installation)
 - [Configuration](#-configuration)
 - [MQTT Commands](#-mqtt-commands)
+- [Camera Setup (ESP32-CAM)](#-camera-setup-esp32-cam)
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
 
@@ -18,29 +27,27 @@ Arduino firmware for the HKS Rover omnidirectional robot. This code runs on an *
 ### Required Components
 - **Arduino UNO R4 WiFi** (or compatible WiFi-enabled Arduino)
 - **3x DC Motors** for omnidirectional movement
-- **1x Kicker Motor** for ball kicking mechanism
-- **Motor Driver** (e.g., L298N or similar)
+- **2x H-Bridge Motor Drivers** (e.g., L298N)
 - **External Power Supply** (recommended: separate from Arduino power)
 
 ### Wiring Diagram
 
 ```
 Arduino UNO R4 WiFi
-├── Motor 1 (Front/Back)
-│   ├── Pin 1  → Motor Driver IN1 (Forward)
-│   ├── Pin 2  → Motor Driver IN2 (Backward)
-│   └── Pin 3  → Motor Driver ENA (Speed - PWM)
-├── Motor 2 (Front/Back)
-│   ├── Pin 4  → Motor Driver IN3 (Forward)
-│   ├── Pin 5  → Motor Driver IN4 (Backward)
-│   └── Pin 6  → Motor Driver ENB (Speed - PWM)
-├── Motor 3 (Left/Right)
-│   ├── Pin 7  → Motor Driver IN1 (Left)
-│   ├── Pin 8  → Motor Driver IN2 (Right)
-│   └── Pin 9  → Motor Driver ENA (Speed - PWM)
-└── Kicker
-    ├── Pin 12 → Motor Driver IN (Forward)
-    └── Pin 10 → Motor Driver EN (Speed - PWM)
+├── H-Bridge 1 (L298N)
+│   ├── Motor 1 (Front/Back)
+│   │   ├── Pin 1  → IN1 (Forward)
+│   │   ├── Pin 2  → IN2 (Backward)
+│   │   └── Pin 3  → ENA (Speed - PWM)
+│   └── Motor 2 (Front/Back)
+│       ├── Pin 4  → IN3 (Forward)
+│       ├── Pin 5  → IN4 (Backward)
+│       └── Pin 6  → ENB (Speed - PWM)
+└── H-Bridge 2 (L298N)
+    └── Motor 3 (Left/Right)
+        ├── Pin 7  → IN1 (Left)
+        ├── Pin 8  → IN2 (Right)
+        └── Pin 9  → ENA (Speed - PWM)
 ```
 
 ## ✨ Features
@@ -49,7 +56,6 @@ Arduino UNO R4 WiFi
 - **MQTT Communication** for real-time control
 - **Omnidirectional Movement** (forward, backward, left, right, rotate)
 - **Dynamic Speed Control** based on command repetition
-- **Kicker Mechanism** for ball interaction
 - **Boost Mode** for maximum speed
 - **Heartbeat Messages** for connection monitoring
 - **Comprehensive Debug Logging** via Serial Monitor
@@ -67,8 +73,6 @@ Arduino UNO R4 WiFi
 | 7 | Motor 3 Left | Left/right motor direction |
 | 8 | Motor 3 Right | Left/right motor direction |
 | 9 | Motor 3 Speed (PWM) | Left/right motor speed control |
-| 10 | Kicker Speed (PWM) | Kicker motor speed control |
-| 12 | Kicker Forward | Kicker motor direction |
 | LED_BUILTIN | Status LED | Connection status indicator |
 
 ## 🚀 Installation
@@ -99,7 +103,6 @@ Create a file named `arduino_secrets.h` in the same directory as `rover.ino`:
 #define SECRET_PASS "YourWiFiPassword"
 ```
 
-> **⚠️ Important**: Add `arduino_secrets.h` to your `.gitignore` to avoid committing WiFi credentials!
 
 ### 5. Upload the Code
 
@@ -149,13 +152,59 @@ The rover listens to the `rover/control` topic and responds to the following com
 | `rotate-right` | Rotate clockwise | Motors in opposite directions |
 | `stop` | Stop all motors | Emergency stop |
 | `gas` | Boost mode | Maximum speed on all motors |
-| `kicker` | Activate kicker | 200ms pulse to kicker motor |
 
 ### MQTT Topics
 
 - **Subscribe**: `rover/control` - Receives movement commands
 - **Publish**: `rover/status` - Sends connection status on startup
 - **Publish**: `rover/heartbeat` - Sends heartbeat every 30 seconds
+
+## 📷 Camera Setup (ESP32-CAM)
+
+The `camera.ino` file contains firmware for the **ESP32-CAM** module to stream video to the web interface.
+
+> **⚠️ Note**: This code was written in a rush and does not follow best practices. It works but could be optimized for better performance and error handling.
+
+### Hardware Requirements
+- **ESP32-CAM** module (AI Thinker model)
+- **FTDI Programmer** (for uploading code)
+- **External 5V power supply** (ESP32-CAM draws too much current for USB)
+
+### Installation
+
+1. **Install ESP32 Board Support** in Arduino IDE:
+   - Go to **File → Preferences**
+   - Add to "Additional Board Manager URLs": `https://dl.espressif.com/dl/package_esp32_index.json`
+   - Go to **Tools → Board → Boards Manager**
+   - Search for "ESP32" and install
+
+2. **Select Board**:
+   - **Tools → Board → ESP32 Arduino → AI Thinker ESP32-CAM**
+
+3. **Configure Settings**:
+   - Edit `arduino_secrets.h` with your WiFi credentials
+   - Update `serverURL` in `camera.ino` to point to your Node.js server
+
+4. **Upload**:
+   - Connect ESP32-CAM to FTDI programmer
+   - Set **GPIO 0 to GND** (programming mode)
+   - Upload the code
+   - Remove GPIO 0 connection and reset
+
+### How It Works
+
+The ESP32-CAM:
+1. Connects to WiFi
+2. Captures JPEG frames at ~5 FPS
+3. Sends frames to `/api/camera/upload` endpoint via HTTP POST
+4. The web interface fetches frames from `/api/camera/stream`
+
+### Known Issues
+
+- **Memory limitations**: ESP32-CAM has limited SRAM (~4KB), so large images may cause crashes
+- **No error recovery**: If upload fails, the camera doesn't retry
+- **Hardcoded settings**: Frame size and quality are not configurable without code changes
+- **Our hardware broke**: The ESP32-CAM stopped working after extended use due to hardware limitations
 
 ## 🔧 Troubleshooting
 
